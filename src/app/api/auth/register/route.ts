@@ -18,8 +18,9 @@ export async function POST(req: Request) {
         const result = signupSchema.safeParse(body);
 
         if (!result.success) {
+            const errorMessage = result.error.issues[0].message;
             return NextResponse.json(
-                { error: (result.error as any).errors[0].message },
+                { error: errorMessage },
                 { status: 400 }
             );
         }
